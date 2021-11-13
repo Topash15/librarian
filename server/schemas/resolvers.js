@@ -51,21 +51,32 @@ const resolvers = {
             console.log(user)
             return {token, user}
         },
-        // saveBook: async (parent, args, context) => {
-        //     if(context.user){
-        //         const book = await Book.create(args)
+        // saves book to user
+        saveBook: async (parent, {book}, context) => {
+            if(context.user){
+                const user = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { savedBooks: {book} } },
+                    { new: true }
+                );
 
-        //         const user = await User.findByIdAndUpdate(
-        //             {_id: context.user._id},
-        //             { $push: { books: bookId}},
-        //             { new: true }
-        //         );
-        //         console.log(context.user)
-        //         return book;
-        //     }
+                return user;
+            }
 
-        //     throw new AuthenticationError('You need to be logged in to save a book!')
-        // }
+            throw new AuthenticationError('You need to be logged in to save a book!')
+        },
+        removeBook: async (parent, {bookId}, context) => {
+            if(context.user){
+                const user = await User.findByIdAndUpdate(
+                    {_id: context.user._id},
+                    { $pull: {savedBooks: {bookId: bookId}}},
+                    { new: true }
+                );
+                return user
+            }
+
+            throw new AuthenticationError('You need to be logged in to delete a book!')
+        }
     }
 }
 
