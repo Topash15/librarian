@@ -1,0 +1,25 @@
+{
+  "name": "librarian",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run start\"",
+    "install": "cd server && npm i && cd ../client && npm i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Topash15/librarian.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Topash15/librarian/issues"
+  },
+  "homepage": "https://github.com/Topash15/librarian#readme",
+  "devDependencies": {
+    "concurrently": "^6.4.0"
+  }
+}
